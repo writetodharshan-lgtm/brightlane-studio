@@ -1,0 +1,317 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — "Danny G" portfolio.
+ * Awwwards-style dark editorial direction inspired by the reference video:
+ * near-black canvas, huge display type, serif-italic accents, mono labels,
+ * grain texture, monochrome imagery.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-amethyst: var(--amethyst);
+  --color-amethyst-glow: var(--amethyst-glow);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-marquee-slow: marquee 44s linear infinite;
+}
+
+:root {
+  --radius: 0.375rem;
+  color-scheme: dark;
+
+  /* Dark-only palette: near-black canvas, warm off-white ink */
+  --background: #050505;
+  --foreground: oklch(0.955 0.005 90);
+  --card: oklch(0.14 0.03 300);
+  --card-foreground: oklch(0.955 0.005 90);
+  --popover: oklch(0.14 0.03 300);
+  --popover-foreground: oklch(0.955 0.005 90);
+  --primary: #00e5ff;
+  --primary-foreground: #050505;
+  --secondary: #3b0a6b;
+  --secondary-foreground: oklch(0.955 0.005 90);
+  --muted: oklch(0.18 0.04 300);
+  --muted-foreground: oklch(0.68 0.04 300);
+  --accent: #00e5ff;
+  --amethyst: #3b0a6b;
+  --amethyst-glow: oklch(0.62 0.2 305);
+  --accent-foreground: #050505;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.62 0.2 305 / 22%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: #00e5ff;
+  --sidebar: oklch(0.13 0.006 260);
+  --sidebar-foreground: oklch(0.955 0.005 90);
+  --sidebar-primary: oklch(0.955 0.005 90);
+  --sidebar-primary-foreground: oklch(0.095 0.005 260);
+  --sidebar-accent: oklch(0.18 0.006 260);
+  --sidebar-accent-foreground: oklch(0.955 0.005 90);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.75 0.01 260);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-background);
+  }
+
+  /* Native <select> popups: keep option text readable on every platform */
+  select {
+    background-color: var(--color-card);
+  }
+  select option {
+    background-color: var(--color-card);
+    color: var(--color-card-foreground);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 999px;
+  }
+}
+
+/* ---------- Display type helpers ---------- */
+
+@utility text-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-foreground);
+}
+
+@utility text-outline-faint {
+  color: transparent;
+  -webkit-text-stroke: 1px oklch(1 0 0 / 35%);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+/* ---------- Grain texture ---------- */
+
+@utility grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Marquee ---------- */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+
+.marquee-track.slow {
+  animation: var(--animate-marquee-slow);
+}
+
+/* ---------- Hover / interaction helpers ---------- */
+
+@utility link-underline {
+  position: relative;
+}
+
+@utility card-zoom-img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .card-zoom-img {
+  transform: scale(1.06);
+}
+
+/* React Bits — Shiny Text */
+.shiny-text {
+  background: linear-gradient(110deg, var(--muted-foreground) 40%, var(--accent) 50%, var(--muted-foreground) 60%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shiny-sweep 4s linear infinite;
+}
+@keyframes shiny-sweep { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+/* React Bits — Spotlight Card */
+.spotlight-card { position: relative; overflow: hidden; }
+.spotlight-card::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--amethyst-glow) 22%, transparent), transparent 70%);
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) { .shiny-text { animation: none; } }
+
+/* Brand accent helpers */
+.text-accent-gradient {
+  background: linear-gradient(100deg, var(--amethyst-glow), var(--accent));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------- Futuristic HUD layer ---------- */
+body {
+  background-image:
+    radial-gradient(60% 40% at 85% 0%, color-mix(in oklab, var(--amethyst) 55%, transparent), transparent 70%),
+    radial-gradient(40% 30% at 0% 60%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%),
+    linear-gradient(color-mix(in oklab, var(--amethyst-glow) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--amethyst-glow) 7%, transparent) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+  background-attachment: fixed;
+}
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, color-mix(in oklab, var(--accent) 3%, transparent) 3px 4px);
+  mix-blend-mode: screen;
+}
+.label-mono { color: color-mix(in oklab, var(--accent) 70%, var(--muted-foreground)); }
+
+.hud-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: linear-gradient(160deg, color-mix(in oklab, var(--amethyst) 28%, transparent), color-mix(in oklab, var(--background) 60%, transparent));
+  backdrop-filter: blur(10px);
+  transition: border-color .4s, box-shadow .4s, transform .4s;
+}
+.hud-panel::before, .hud-panel::after {
+  content: ""; position: absolute; width: 18px; height: 18px; pointer-events: none;
+  color: var(--accent); opacity: .55; transition: opacity .4s, width .4s, height .4s;
+}
+.hud-panel::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; border-top-left-radius: .9rem; }
+.hud-panel::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; border-bottom-right-radius: .9rem; }
+.hud-panel:hover {
+  border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 20%, transparent), 0 20px 60px -20px color-mix(in oklab, var(--accent) 35%, transparent), inset 0 0 40px -10px color-mix(in oklab, var(--amethyst-glow) 30%, transparent);
+  transform: translateY(-3px);
+}
+.hud-panel:hover::before, .hud-panel:hover::after { opacity: 1; width: 34px; height: 34px; }
+
+.neon-text { text-shadow: 0 0 24px color-mix(in oklab, var(--accent) 35%, transparent), 0 0 2px color-mix(in oklab, var(--foreground) 60%, transparent); }
+
+.project-shade {
+  background: linear-gradient(to top, var(--background) 8%, color-mix(in oklab, var(--background) 75%, transparent) 38%, color-mix(in oklab, var(--amethyst) 25%, transparent) 75%, transparent);
+}
